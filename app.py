@@ -125,38 +125,27 @@ if submitted:
 
     proba = float(pipeline.predict_proba(d)[0, 1])
     is_placed = proba >= THRESHOLD
-    score = round(proba*100)
+    if proba >= 0.85:
+
+        st.success("🏆 Excellent Placement Potential")
+
+    elif proba >= 0.70:
+
+        st.info("👍 Good Placement Potential")
+
+    elif proba >= 0.50:
+
+        st.warning("⚠ Moderate Placement Potential")
+
+    else:
+
+        st.error("🚨 Low Placement Potential")
+        score = round(proba*100)
 
     st.progress(score/100)
 
     st.write(f"Overall Employability Score : **{score}/100**")
-    st.subheader("👤 Student Profile Summary")
-
-c1, c2 = st.columns(2)
-
-with c1:
-    st.info(f"""
-**CGPA:** {cgpa}
-
-**10th:** {p10}%
-
-**12th:** {p12}%
-
-**Graduation:** {grad}%
-
-**Attendance:** {attendance}%
-""")
-
-with c2:
-    st.info(f"""
-**Internship:** {internship}
-
-**Projects:** {projects}
-
-**Certifications:** {certifications}
-
-**Backlogs:** {backlogs}
-""")
+        
     st.divider()
     r1, r2 = st.columns([2, 1])
     with r1:

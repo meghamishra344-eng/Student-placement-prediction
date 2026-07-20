@@ -344,20 +344,31 @@ st.markdown(
 
 st.markdown("<h1 style='text-align:center; color:#4CAF50;'>🎓 Student Placement Predictor</h1>", unsafe_allow_html=True)
 # -------------------------------
+# -------------------------------
 # Sidebar Inputs
 # -------------------------------
-st.sidebar.header("📋 Enter Student Details")
+st.sidebar.header("📋 Student Search")
 
-# Search bar for student names
-student_name = st.sidebar.text_input("🔍 Search Student by Name")
+# Load your dataset first (make sure df is defined earlier)
+# Example: df = pd.read_csv("Student_Placement_Dataset_10000_v2.csv")
 
+# Dropdown with search
+student_name = st.sidebar.selectbox(
+    "🔍 Select Student",
+    options=df['Name'].unique()
+)
+
+# Show selected student details
 if student_name:
-    # Example: filter dataset by name (make sure df is loaded)
-    result = df[df['Name'].str.contains(student_name, case=False)]
-    st.write("Search Results:", result)
+    student = df[df['Name'] == student_name].iloc[0]
+    st.write("Student Details:", student)
 
-# Sliders for academic/skill inputs
-cgpa = st.sidebar.slider("CGPA", 0.0, 10.0, 7.5)
-iq = st.sidebar.slider("IQ Level", 50, 150, 100)
-comm = st.sidebar.selectbox("Communication Skills", ["Poor", "Average", "Good"])
+    # Auto-fill sliders with student data
+    cgpa = st.sidebar.slider("CGPA", 0.0, 10.0, float(student['CGPA']))
+    iq = st.sidebar.slider("IQ Level", 50, 150, int(student['IQ']))
+    comm = st.sidebar.selectbox(
+        "Communication Skills",
+        ["Poor", "Average", "Good"],
+        index=int(student['Comm'])  # assuming Comm is stored as 0/1/2
+    )
 

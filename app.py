@@ -21,9 +21,6 @@ from sklearn.ensemble import RandomForestClassifier
 df = pd.read_csv("Student_Placement_Dataset_10000_v2.csv")
 st.write("Dataset columns:", df.columns)
 
-import pickle
-model = pickle.load(open("model.pkl", "rb"))
-
 
 st.set_page_config(page_title="Student Placement Predictor", page_icon="🎓", layout="wide")
 

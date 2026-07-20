@@ -367,11 +367,11 @@ if student_id:
 
     # Auto-fill sliders with student data
     cgpa = st.sidebar.slider("CGPA", 0.0, 10.0, float(student['CGPA']))
-    iq = st.sidebar.slider("IQ Level", 50, 150, int(student['IQ']))
+    iq = st.sidebar.slider("IQ Level", 50, 150, int(student['Aptitude_Score']))
     comm = st.sidebar.selectbox(
         "Communication Skills",
         ["Poor", "Average", "Good"],
-        index=int(student['Comm'])  # assuming Comm is stored as 0/1/2
+        index=int(student['Communication_Score'])  # assuming Comm is stored as 0/1/2
     )
 
 

@@ -8,7 +8,6 @@ and a SHAP explanation.
 import streamlit as st
 import pandas as pd
 import numpy as np
-import shap
 import matplotlib.pyplot as plt
 
 from sklearn.compose import ColumnTransformer, make_column_selector

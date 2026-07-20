@@ -387,7 +387,7 @@ elif page == "🎯 Prediction":
 
     if predict:
 
-    student = pd.DataFrame({
+        student = pd.DataFrame({
 
         "10th_Percentage":[tenth],
         "12th_Percentage":[twelfth],

@@ -359,11 +359,11 @@ st.sidebar.header("📋 Student Search")
 
 student_id = st.sidebar.selectbox(
     "🔍 Select Student",
-    options=df['StudentID'].unique()
+    options=df['Student_ID'].unique()
 )
 
 if student_id:
-    student = df[df['StudentID'] == student_id].iloc[0]
+    student = df[df['Student_ID'] == student_id].iloc[0]
 
     # Auto-fill sliders with student data
     cgpa = st.sidebar.slider("CGPA", 0.0, 10.0, float(student['CGPA']))

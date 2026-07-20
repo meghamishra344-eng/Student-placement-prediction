@@ -6,4 +6,4 @@ xgboost
 shap
 matplotlib
 joblib
-reportlab
+reportlab==4.2.2

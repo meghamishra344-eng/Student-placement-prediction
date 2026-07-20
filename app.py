@@ -132,28 +132,22 @@ if submitted:
     st.progress(proba)
     st.caption(f"Classified using a tuned decision threshold of {THRESHOLD:.2f}.")
 
-    # SHAP explanation
-    st.subheader("Why this prediction?")
-    preprocessor = pipeline.named_steps["prep"]
-    model = pipeline.named_steps["model"]
-    X_trans = preprocessor.transform(d)
-    feat_names = [n.split("__")[-1] for n in preprocessor.get_feature_names_out()]
+   st.subheader("📌 Recommendations")
 
-    shap_vals = shap.TreeExplainer(model).shap_values(X_trans)
-    arr = np.array(shap_vals)
-    if isinstance(shap_vals, list):
-        contrib = shap_vals[1][0]
-    elif arr.ndim == 3:
-        contrib = arr[0, :, 1]
-    else:
-        contrib = arr[0]
+if cgpa < 7:
+    st.warning("📚 Improve CGPA to at least 7.0")
 
-    s = pd.Series(contrib, index=feat_names).sort_values(key=abs, ascending=False).head(8).iloc[::-1]
-    colors = ["#4c9f70" if v > 0 else "#d9534f" for v in s.values]
+if coding < 70:
+    st.warning("💻 Improve Coding Skills")
 
-    fig, ax = plt.subplots(figsize=(8, 5))
-    ax.barh(s.index, s.values, color=colors)
-    ax.axvline(0, color="black", linewidth=0.8)
-    ax.set_xlabel("Contribution to placement  (green = toward Placed, red = toward Not Placed)")
-    ax.set_title("Top factors for this student")
-    st.pyplot(fig)
+if communication < 70:
+    st.warning("🗣 Improve Communication Skills")
+
+if internship == "No":
+    st.warning("🏢 Complete at least one internship")
+
+if certifications < 3:
+    st.warning("📜 Earn more certifications")
+
+if projects < 3:
+    st.warning("📂 Build more projects")

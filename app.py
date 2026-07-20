@@ -21,6 +21,91 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.impute import SimpleImputer
 from sklearn.ensemble import RandomForestClassifier
 
+with st.sidebar:
+    st.image("logo.png", width=120)
+    st.title("Placement Predictor")
+
+    page = st.radio(
+        "Navigation",
+        [
+            "🏠 Home",
+            "🎯 Prediction",
+            "📊 Dashboard",
+            "🤖 About Model"
+        ]
+    )
+st.title(...)
+st.markdown("""
+<div style='padding:35px;
+background:linear-gradient(135deg,#2563EB,#4F46E5);
+border-radius:20px;
+color:white;'>
+
+<h1>🎓 Student Placement Prediction System</h1>
+
+<p style='font-size:20px'>
+Predict a student's placement probability using Machine Learning
+</p>
+
+</div>
+""", unsafe_allow_html=True)
+
+c1,c2,c3,c4=st.columns(4)
+
+c1.metric("Students","10,000")
+
+c2.metric("Accuracy","95.8%")
+
+c3.metric("Model","Random Forest")
+
+c4.metric("Features","20")
+
+name = st.text_input("Student_Name")
+st.success(f"{name} has a placement probability of {proba:.1%}")
+
+import plotly.graph_objects as go
+
+fig = go.Figure(go.Indicator(
+
+mode="gauge+number",
+
+value=proba*100,
+
+title={'text':"Placement Probability"},
+
+gauge={
+'axis':{'range':[0,100]},
+'bar':{'color':'green'}
+}
+
+))
+
+st.plotly_chart(fig,use_container_width=True)
+
+st.markdown(f"""
+<div style="padding:30px;
+border-radius:20px;
+background:#1E293B;
+text-align:center;">
+
+<h1 style="color:#22C55E;">PLACED</h1>
+
+<h2>{proba*100:.2f}% Probability</h2>
+
+</div>
+""",unsafe_allow_html=True)
+
+st.markdown("---")
+
+st.markdown("""
+Developed by
+
+**Megha Mishra**
+
+MBA Business Analytics
+
+Jagran Lakecity University
+""")
 # Dark Modern Theme
 st.set_page_config(page_title="Student Placement Predictor", page_icon="🎓", layout="wide")
 
@@ -171,3 +256,30 @@ if submitted:
     ax.set_xlabel("Contribution to placement  (green = toward Placed, red = toward Not Placed)")
     ax.set_title("Top factors for this student")
     st.pyplot(fig)
+.stApp{
+background:#F4F7FE;
+}
+
+[data-testid="stMetric"]{
+background:white;
+padding:20px;
+border-radius:15px;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.stButton>button{
+background:#2563EB;
+color:white;
+border-radius:10px;
+height:50px;
+font-size:18px;
+font-weight:700;
+width:100%;
+}
+
+div[data-testid="stForm"]{
+background:white;
+padding:25px;
+border-radius:20px;
+box-shadow:0 8px 20px rgba(0,0,0,.08);
+}

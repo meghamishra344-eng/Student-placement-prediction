@@ -8,7 +8,6 @@ and a SHAP explanation.
 import streamlit as st
 import pandas as pd
 import numpy as np
-import shap
 import matplotlib.pyplot as plt
 
 from sklearn.compose import ColumnTransformer, make_column_selector
@@ -133,28 +132,4 @@ if submitted:
     st.progress(proba)
     st.caption(f"Classified using a tuned decision threshold of {THRESHOLD:.2f}.")
 
-    # SHAP explanation
-    st.subheader("Why this prediction?")
-    preprocessor = pipeline.named_steps["prep"]
-    model = pipeline.named_steps["model"]
-    X_trans = preprocessor.transform(d)
-    feat_names = [n.split("__")[-1] for n in preprocessor.get_feature_names_out()]
-
-    shap_vals = shap.TreeExplainer(model).shap_values(X_trans)
-    arr = np.array(shap_vals)
-    if isinstance(shap_vals, list):
-        contrib = shap_vals[1][0]
-    elif arr.ndim == 3:
-        contrib = arr[0, :, 1]
-    else:
-        contrib = arr[0]
-
-    s = pd.Series(contrib, index=feat_names).sort_values(key=abs, ascending=False).head(8).iloc[::-1]
-    colors = ["#4c9f70" if v > 0 else "#d9534f" for v in s.values]
-
-    fig, ax = plt.subplots(figsize=(8, 5))
-    ax.barh(s.index, s.values, color=colors)
-    ax.axvline(0, color="black", linewidth=0.8)
-    ax.set_xlabel("Contribution to placement  (green = toward Placed, red = toward Not Placed)")
-    ax.set_title("Top factors for this student")
-    st.pyplot(fig)
+  

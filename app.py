@@ -125,23 +125,7 @@ if submitted:
 
     proba = float(pipeline.predict_proba(d)[0, 1])
     is_placed = proba >= THRESHOLD
-    if proba >= 0.85:
-
-        st.success("🏆 Excellent Placement Potential")
-
-    elif proba >= 0.70:
-
-        st.info("👍 Good Placement Potential")
-
-    elif proba >= 0.50:
-
-        st.warning("⚠ Moderate Placement Potential")
-
-    else:
-
-        st.error("🚨 Low Placement Potential")
-        score = round(proba*100)
-
+    score = round(proba*100)
     st.progress(score/100)
 
     st.write(f"Overall Employability Score : **{score}/100**")

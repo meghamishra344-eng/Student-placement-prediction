@@ -289,6 +289,12 @@ if submitted:
 
     st.write("")
 
+  if prediction == 1:
+    st.success(f"✅ Likely to be placed! Confidence: {probability:.2f}%")
+else:
+    st.error(f"❌ May not be placed. Confidence: {100 - probability:.2f}%")
+
+
     # SHAP explanation
     with st.container(border=True):
         st.markdown('<div class="section-title">Why this prediction?</div>', unsafe_allow_html=True)

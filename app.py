@@ -364,6 +364,20 @@ student_id = st.sidebar.selectbox(
 
 if student_id:
     student = df[df['Student_ID'] == student_id].iloc[0]
+score = int(student['Communication_Score'])
+
+if score < 40:
+    comm_index = 0   # Poor
+elif score < 70:
+    comm_index = 1   # Average
+else:
+    comm_index = 2   # Good
+
+comm = st.sidebar.selectbox(
+    "Communication Skills",
+    ["Poor", "Average", "Good"],
+    index=comm_index
+)
 
     # Auto-fill sliders with student data
     cgpa = st.sidebar.slider("CGPA", 0.0, 10.0, float(student['CGPA']))

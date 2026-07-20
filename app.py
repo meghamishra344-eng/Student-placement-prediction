@@ -19,6 +19,8 @@ from sklearn.ensemble import RandomForestClassifier
 
 # Load dataset once at the start
 df = pd.read_csv("Student_Placement_Dataset_10000_v2.csv")
+st.write("Dataset columns:", df.columns)
+
 
 st.set_page_config(page_title="Student Placement Predictor", page_icon="🎓", layout="wide")
 
@@ -355,16 +357,13 @@ st.sidebar.header("📋 Student Search")
 # Load your dataset first (make sure df is defined earlier)
 # Example: df = pd.read_csv("Student_Placement_Dataset_10000_v2.csv")
 
-# Dropdown with search
-student_name = st.sidebar.selectbox(
+student_id = st.sidebar.selectbox(
     "🔍 Select Student",
-    options=df['Name'].unique()
+    options=df['StudentID'].unique()
 )
 
-# Show selected student details
-if student_name:
-    student = df[df['Name'] == student_name].iloc[0]
-    st.write("Student Details:", student)
+if student_id:
+    student = df[df['StudentID'] == student_id].iloc[0]
 
     # Auto-fill sliders with student data
     cgpa = st.sidebar.slider("CGPA", 0.0, 10.0, float(student['CGPA']))
@@ -374,4 +373,5 @@ if student_name:
         ["Poor", "Average", "Good"],
         index=int(student['Comm'])  # assuming Comm is stored as 0/1/2
     )
+
 

@@ -220,8 +220,6 @@ for item in strengths:
 st.warning("### Areas to Improve")
 for item in improvements:
     st.write("⚠️", item)
-
-#profile score
 score = round(proba*100)
 
 st.progress(score/100)

@@ -256,30 +256,28 @@ if submitted:
     ax.set_xlabel("Contribution to placement  (green = toward Placed, red = toward Not Placed)")
     ax.set_title("Top factors for this student")
     st.pyplot(fig)
+
+st.markdown("""
+<style>
+
 .stApp{
-background:#F4F7FE;
+    background:#F4F7FE;
 }
 
 [data-testid="stMetric"]{
-background:white;
-padding:20px;
-border-radius:15px;
-box-shadow:0 8px 25px rgba(0,0,0,.08);
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 
 .stButton>button{
-background:#2563EB;
-color:white;
-border-radius:10px;
-height:50px;
-font-size:18px;
-font-weight:700;
-width:100%;
+    background:#2563EB;
+    color:white;
+    border-radius:10px;
+    height:50px;
+    width:100%;
 }
 
-div[data-testid="stForm"]{
-background:white;
-padding:25px;
-border-radius:20px;
-box-shadow:0 8px 20px rgba(0,0,0,.08);
-}
+</style>
+""", unsafe_allow_html=True)

@@ -125,7 +125,11 @@ if submitted:
 
     proba = float(pipeline.predict_proba(d)[0, 1])
     is_placed = proba >= THRESHOLD
+    score = round(proba*100)
 
+    st.progress(score/100)
+
+    st.write(f"Overall Employability Score : **{score}/100**")
     st.divider()
     r1, r2 = st.columns([2, 1])
     with r1:
@@ -220,8 +224,4 @@ for item in strengths:
 st.warning("### Areas to Improve")
 for item in improvements:
     st.write("⚠️", item)
-score = round(proba*100)
 
-st.progress(score/100)
-
-st.write(f"Overall Employability Score : **{score}/100**")

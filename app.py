@@ -25,7 +25,6 @@ import pickle
 model = pickle.load(open("model.pkl", "rb"))
 
 
-
 st.set_page_config(page_title="Student Placement Predictor", page_icon="🎓", layout="wide")
 
 DATA_FILE = "Student_Placement_Dataset_10000_v2.csv"

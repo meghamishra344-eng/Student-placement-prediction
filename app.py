@@ -18,7 +18,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.ensemble import RandomForestClassifier
 
 # Load dataset once at the start
-df = pd.read_csv("C:/Users/lenovo/Downloads/Student_Placement_Dataset_10000_v2.csv")
+df = pd.read_csv("Student_Placement_Dataset_10000_v2.csv")
 
 st.set_page_config(page_title="Student Placement Predictor", page_icon="🎓", layout="wide")
 

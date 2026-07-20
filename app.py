@@ -10,6 +10,9 @@ Student Placement Prediction System - Self-contained Streamlit App
 """
 
 import streamlit as st
+import joblib
+import plotly.graph_objects as go
+import pandas as pd
 
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(
@@ -81,6 +84,11 @@ font-size:15px;
 
 </style>
 """, unsafe_allow_html=True)
+@st.cache_resource
+def load_model():
+    return joblib.load("Model (5).pkl")
+
+model = load_model()
 
 # ---------------- SIDEBAR ----------------
 with st.sidebar:
@@ -379,14 +387,68 @@ elif page == "🎯 Prediction":
 
     if predict:
 
-        st.success(
-            f"Details submitted successfully for **{student_name}**."
-        )
+    student = pd.DataFrame({
 
-        st.info("""
-Prediction logic will be connected in **Part 3**.
-Your trained Random Forest model will calculate the placement probability and display the result here.
-""")
+        "10th_Percentage":[tenth],
+        "12th_Percentage":[twelfth],
+        "Graduation_Percentage":[graduation],
+        "CGPA":[cgpa],
+        "Backlogs":[backlogs],
+        "Attendance":[attendance],
+
+        "Internship_Months":[internship_months],
+        "Projects":[projects],
+        "Certifications":[certifications],
+
+        "Aptitude_Score":[aptitude],
+        "Coding_Score":[coding],
+        "Communication_Score":[communication],
+        "Technical_Score":[technical],
+        "Mock_Interview_Score":[mock],
+        "Resume_Score":[resume],
+
+        "Internship":[internship]
+
+    })
+
+    probability = model.predict_proba(student)[0][1]
+
+    prediction = model.predict(student)[0]
+
+    st.divider()
+
+    fig = go.Figure(go.Indicator(
+
+        mode="gauge+number",
+
+        value=probability*100,
+
+        title={"text":"Placement Probability"},
+
+        gauge={
+
+            "axis":{"range":[0,100]},
+
+            "bar":{"color":"green"},
+
+            "steps":[
+
+                {"range":[0,40],"color":"#FCA5A5"},
+
+                {"range":[40,70],"color":"#FCD34D"},
+
+                {"range":[70,100],"color":"#4ADE80"}
+
+            ]
+
+        }
+
+    ))
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
 
 elif page=="📊 Dashboard":
     st.title("📊 Dashboard")
@@ -399,3 +461,108 @@ Developed by Megha Mishra | MBA Business Analytics
 
 </div>
 """, unsafe_allow_html=True)
+    if prediction==1:
+
+        st.markdown(f"""
+
+<div style="
+
+background:#DCFCE7;
+
+padding:30px;
+
+border-radius:20px;
+
+text-align:center;
+
+">
+
+<h1 style="color:#16A34A;">
+
+✅ PLACED
+
+</h1>
+
+<h2>
+
+Congratulations {student_name}!
+
+</h2>
+
+<h3>
+
+Placement Probability
+
+{probability*100:.2f}%
+
+</h3>
+
+</div>
+
+""",unsafe_allow_html=True)
+
+    else:
+
+        st.markdown(f"""
+
+<div style="
+
+background:#FEE2E2;
+
+padding:30px;
+
+border-radius:20px;
+
+text-align:center;
+
+">
+
+<h1 style="color:#DC2626;">
+
+❌ NOT PLACED
+
+</h1>
+
+<h2>
+
+{student_name}
+
+</h2>
+
+<h3>
+
+Probability
+
+{probability*100:.2f}%
+
+</h3>
+
+</div>
+
+""",unsafe_allow_html=True)
+
+    st.subheader("📌 Recommendations")
+
+    if cgpa<7:
+
+        st.warning("Increase CGPA.")
+
+    if coding<70:
+
+        st.warning("Improve Coding Skills.")
+
+    if communication<70:
+
+        st.warning("Improve Communication Skills.")
+
+    if internship=="No":
+
+        st.warning("Complete at least one internship.")
+
+    if certifications<3:
+
+        st.warning("Earn more certifications.")
+
+    if projects<3:
+
+        st.warning("Work on additional projects.")

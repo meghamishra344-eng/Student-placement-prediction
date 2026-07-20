@@ -130,6 +130,33 @@ if submitted:
     st.progress(score/100)
 
     st.write(f"Overall Employability Score : **{score}/100**")
+    st.subheader("👤 Student Profile Summary")
+
+c1, c2 = st.columns(2)
+
+with c1:
+    st.info(f"""
+**CGPA:** {cgpa}
+
+**10th:** {p10}%
+
+**12th:** {p12}%
+
+**Graduation:** {grad}%
+
+**Attendance:** {attendance}%
+""")
+
+with c2:
+    st.info(f"""
+**Internship:** {internship}
+
+**Projects:** {projects}
+
+**Certifications:** {certifications}
+
+**Backlogs:** {backlogs}
+""")
     st.divider()
     r1, r2 = st.columns([2, 1])
     with r1:

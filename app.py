@@ -221,60 +221,9 @@ st.warning("### Areas to Improve")
 for item in improvements:
     st.write("⚠️", item)
 
-c1, c2, c3, c4 = st.columns(4)
-
-c1.metric("Placement Probability", f"{proba*100:.1f}%")
-
-c2.metric(
-    "Academic Average",
-    f"{(p10+p12+grad)/3:.1f}%"
-)
-
-c3.metric(
-    "Skill Average",
-    f"{(aptitude+coding+communication+technical+mock+resume)/6:.1f}"
-)
-
-c4.metric(
-    "Profile Strength",
-    "Excellent" if proba>0.8 else
-    "Good" if proba>0.6 else
-    "Needs Improvement"
-)
-
-import plotly.graph_objects as go
-
-fig = go.Figure(go.Indicator(
-    mode="gauge+number",
-    value=proba*100,
-    title={'text':"Placement Probability"},
-    gauge={
-        'axis':{'range':[0,100]},
-        'bar':{'color':'green'},
-        'steps':[
-            {'range':[0,40],'color':'#ffb3b3'},
-            {'range':[40,70],'color':'#ffe699'},
-            {'range':[70,100],'color':'#b6fcb6'}
-        ]
-    }
-))
-
-st.plotly_chart(fig,use_container_width=True)
-
+#profile score
 score = round(proba*100)
 
 st.progress(score/100)
 
 st.write(f"Overall Employability Score : **{score}/100**")
-
-if score >= 85:
-    st.success("🏆 Excellent! Ready for placement interviews.")
-
-elif score >= 70:
-    st.info("👍 Good profile. Minor improvements recommended.")
-
-elif score >= 50:
-    st.warning("⚠ Moderate profile. Focus on skill development.")
-
-else:
-    st.error("🚨 High risk. Significant improvement required.")

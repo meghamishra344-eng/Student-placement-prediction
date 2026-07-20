@@ -375,6 +375,7 @@ if student_id:
     )
 score = int(student['Communication_Score'])
 
+# Map numeric score into category index
 if score < 40:
     comm_index = 0   # Poor
 elif score < 70:
@@ -387,5 +388,6 @@ comm = st.sidebar.selectbox(
     ["Poor", "Average", "Good"],
     index=comm_index
 )
+
 
 

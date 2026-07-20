@@ -137,5 +137,44 @@ if submitted:
         st.metric("Placement Probability", f"{proba * 100:.1f}%")
     st.progress(proba)
     st.caption(f"Classified using a tuned decision threshold of {THRESHOLD:.2f}.")
+st.subheader("📊 Top Factors Used by the Model")
 
+# Get feature importance from Random Forest
+feature_importance = pipeline.named_steps["model"].feature_importances_
+
+# Get transformed feature names
+preprocessor = pipeline.named_steps["prep"]
+feature_names = preprocessor.get_feature_names_out()
+
+# Create DataFrame
+importance_df = pd.DataFrame({
+    "Feature": feature_names,
+    "Importance": feature_importance
+})
+
+# Clean feature names
+importance_df["Feature"] = importance_df["Feature"].str.replace("num__", "", regex=False)
+importance_df["Feature"] = importance_df["Feature"].str.replace("cat__", "", regex=False)
+
+# Top 10 important features
+importance_df = importance_df.sort_values(
+    by="Importance",
+    ascending=False
+).head(10)
+
+# Plot
+fig, ax = plt.subplots(figsize=(8,5))
+
+ax.barh(
+    importance_df["Feature"],
+    importance_df["Importance"]
+)
+
+ax.set_xlabel("Importance Score")
+ax.set_ylabel("Feature")
+ax.set_title("Top Features Influencing Placement Prediction")
+
+plt.gca().invert_yaxis()
+
+st.pyplot(fig)
   

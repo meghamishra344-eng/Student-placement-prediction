@@ -289,13 +289,13 @@ if submitted:
 
     st.write("")
 
-  prediction = model.predict(features)[0]
-  probability = model.predict_proba(features)[0][1] * 100
+    prediction = model.predict(features)[0]
+    probability = model.predict_proba(features)[0][1] * 100
 
-  if prediction == 1:
-      st.success(f"✅ Likely to be placed! Confidence: {probability:.2f}%")
-  else:
-      st.error(f"❌ May not be placed. Confidence: {100 - probability:.2f}%")
+    if prediction == 1:
+        st.success(f"✅ Likely to be placed! Confidence: {probability:.2f}%")
+    else:
+        st.error(f"❌ May not be placed. Confidence: {100 - probability:.2f}%")
 
 
   

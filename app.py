@@ -137,44 +137,86 @@ if submitted:
         st.metric("Placement Probability", f"{proba * 100:.1f}%")
     st.progress(proba)
     st.caption(f"Classified using a tuned decision threshold of {THRESHOLD:.2f}.")
-st.subheader("📊 Top Factors Used by the Model")
+st.subheader("📊 Student Performance Analysis")
 
-# Get feature importance from Random Forest
-feature_importance = pipeline.named_steps["model"].feature_importances_
+analysis = {
+    "CGPA": cgpa * 10,
+    "Coding": coding,
+    "Communication": communication,
+    "Technical": technical,
+    "Aptitude": aptitude,
+    "Resume": resume,
+    "Attendance": attendance,
+    "Internship": 100 if internship == "Yes" else 0,
+    "Projects": min(projects * 10, 100),
+    "Certifications": min(certifications * 10, 100)
+}
 
-# Get transformed feature names
-preprocessor = pipeline.named_steps["prep"]
-feature_names = preprocessor.get_feature_names_out()
-
-# Create DataFrame
-importance_df = pd.DataFrame({
-    "Feature": feature_names,
-    "Importance": feature_importance
+analysis_df = pd.DataFrame({
+    "Feature": list(analysis.keys()),
+    "Score": list(analysis.values())
 })
 
-# Clean feature names
-importance_df["Feature"] = importance_df["Feature"].str.replace("num__", "", regex=False)
-importance_df["Feature"] = importance_df["Feature"].str.replace("cat__", "", regex=False)
-
-# Top 10 important features
-importance_df = importance_df.sort_values(
-    by="Importance",
-    ascending=False
-).head(10)
-
-# Plot
 fig, ax = plt.subplots(figsize=(8,5))
 
+colors = []
+
+for score in analysis_df["Score"]:
+    if score >= 75:
+        colors.append("green")
+    elif score >= 50:
+        colors.append("orange")
+    else:
+        colors.append("red")
+
 ax.barh(
-    importance_df["Feature"],
-    importance_df["Importance"]
+    analysis_df["Feature"],
+    analysis_df["Score"],
+    color=colors
 )
 
-ax.set_xlabel("Importance Score")
-ax.set_ylabel("Feature")
-ax.set_title("Top Features Influencing Placement Prediction")
+ax.set_xlim(0,100)
+ax.set_xlabel("Performance Score")
+ax.set_title("Student-wise Performance Analysis")
 
 plt.gca().invert_yaxis()
 
 st.pyplot(fig)
-  
+
+st.subheader("📌 Prediction Insights")
+
+strengths = []
+improvements = []
+
+if cgpa >= 7.5:
+    strengths.append("Strong CGPA")
+else:
+    improvements.append("Improve CGPA")
+
+if coding >= 70:
+    strengths.append("Good Coding Skills")
+else:
+    improvements.append("Improve Coding Skills")
+
+if communication >= 70:
+    strengths.append("Good Communication")
+else:
+    improvements.append("Improve Communication")
+
+if internship == "Yes":
+    strengths.append("Internship Experience")
+else:
+    improvements.append("Complete an Internship")
+
+if projects >= 3:
+    strengths.append("Good Project Experience")
+else:
+    improvements.append("Work on More Projects")
+
+st.success("### Strengths")
+for item in strengths:
+    st.write("✅", item)
+
+st.warning("### Areas to Improve")
+for item in improvements:
+    st.write("⚠️", item)

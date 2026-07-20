@@ -461,6 +461,8 @@ Developed by Megha Mishra | MBA Business Analytics
 
 </div>
 """, unsafe_allow_html=True)
+
+
     if prediction==1:
 
         st.markdown(f"""
@@ -540,6 +542,7 @@ Probability
 </div>
 
 """,unsafe_allow_html=True)
+
 
     st.subheader("📌 Recommendations")
 

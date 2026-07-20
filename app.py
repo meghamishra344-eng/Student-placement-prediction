@@ -35,25 +35,6 @@ FINAL_NUM = ["10th_Percentage", "12th_Percentage", "Graduation_Percentage", "CGP
              "Academic_Avg", "Skill_Avg", "Total_Experience", "CGPA_x_Skill"]
 FINAL_CAT = ["Internship"]
 
-# Collect student’s scores
-scores = {
-    "10th %": student['10th_Percentage'],
-    "12th %": student['12th_Percentage'],
-    "Graduation %": student['Graduation_Percentage'],
-    "CGPA": student['CGPA'],
-    "Aptitude": student['Aptitude_Score'],
-    "Coding": student['Coding_Score'],
-    "Communication": student['Communication_Score'],
-    "Technical": student['Technical_Score'],
-    "Mock Interview": student['Mock_Interview_Score'],
-    "Resume": student['Resume_Score'],
-    "Backlogs": student['Backlogs'],
-    "Attendance": student['Attendance'],
-    "Internship Months": student['Internship_Months'],
-    "Projects": student['Projects'],
-    "Certifications": student['Certifications']
-}
-
 # Convert to DataFrame for plotting
 df_scores = pd.DataFrame.from_dict(scores, orient='index', columns=['Value'])
 

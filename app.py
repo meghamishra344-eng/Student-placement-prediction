@@ -19,7 +19,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 st.set_page_config(page_title="Student Placement Predictor", page_icon="🎓", layout="wide")
 
-DATA_FILE = "Student_Placement_Dataset_10000_v2.csv"
+DATA_FILE = "Student_Placement_Dataset_10000_with_Names.csv"
 THRESHOLD = 0.60
 SKILL_COLS = ["Aptitude_Score", "Coding_Score", "Communication_Score",
               "Technical_Score", "Mock_Interview_Score", "Resume_Score"]

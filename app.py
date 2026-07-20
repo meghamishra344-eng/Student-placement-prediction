@@ -412,32 +412,61 @@ elif page == "🎯 Prediction":
     if predict:
 
         # Convert values to model input format
-        student = pd.DataFrame({
+       student = pd.DataFrame({
 
-            "10th_Percentage": [tenth],
-            "12th_Percentage": [twelfth],
-            "Graduation_Percentage": [graduation],
-            "CGPA": [cgpa],
-            "Backlogs": [backlogs],
-            "Attendance": [attendance],
+    "10th_Percentage":[tenth],
+    "12th_Percentage":[twelfth],
+    "Graduation_Percentage":[graduation],
+    "CGPA":[cgpa],
+    "Backlogs":[backlogs],
+    "Attendance":[attendance],
 
-            "Internship_Months": [internship_months],
-            "Projects": [projects],
-            "Certifications": [certifications],
+    "Internship_Months":[internship_months],
+    "Projects":[projects],
+    "Certifications":[certifications],
 
-            "Aptitude_Score": [aptitude],
-            "Coding_Score": [coding],
-            "Communication_Score": [communication],
-            "Technical_Score": [technical],
-            "Mock_Interview_Score": [mock],
-            "Resume_Score": [resume],
+    "Aptitude_Score":[aptitude],
+    "Coding_Score":[coding],
+    "Communication_Score":[communication],
+    "Technical_Score":[technical],
+    "Mock_Interview_Score":[mock],
+    "Resume_Score":[resume],
 
-            "Internship": [1 if internship == "Yes" else 0],
-            "Gender": [1 if gender == "Male" else 0],
-            "Age": [age]
+    "Academic_Avg":[
+        (tenth + twelfth + graduation) / 3
+    ],
 
-        })
+    "Skill_Avg":[
+        (
+            aptitude +
+            coding +
+            communication +
+            technical +
+            mock +
+            resume
+        ) / 6
+    ],
 
+    "Total_Experience":[
+        internship_months + projects
+    ],
+
+    "CGPA_x_Skill":[
+        cgpa * (
+            (
+                aptitude +
+                coding +
+                communication +
+                technical +
+                mock +
+                resume
+            ) / 6
+        )
+    ],
+
+    "Internship":[internship]
+
+})
         prediction = model.predict(student)[0]
         probability = model.predict_proba(student)[0][1]
 

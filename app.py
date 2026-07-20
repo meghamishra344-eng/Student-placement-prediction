@@ -18,6 +18,12 @@ from sklearn.ensemble import RandomForestClassifier
 
 st.set_page_config(page_title="Student Placement Predictor", page_icon="🎓", layout="wide")
 
+st.markdown("---")
+st.markdown(
+    "<center><b>Developed by Megha Mishra | MBA Business Analytics</b></center>",
+    unsafe_allow_html=True
+)
+
 DATA_FILE = "Student_Placement_Dataset_10000_v2.csv"
 THRESHOLD = 0.60
 SKILL_COLS = ["Aptitude_Score", "Coding_Score", "Communication_Score",

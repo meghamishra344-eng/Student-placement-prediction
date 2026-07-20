@@ -200,10 +200,193 @@ Technology :
 
 """)
 
-# Placeholder pages
-elif page=="🎯 Prediction":
-    st.title("🎯 Prediction Page")
-    st.info("Prediction form will be added in Part 2.")
+elif page == "🎯 Prediction":
+
+    st.markdown("""
+    <div class="hero">
+    <h1>🎯 Student Placement Prediction</h1>
+    <p>Fill in the student's details to predict placement chances.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    with st.form("prediction_form"):
+
+        st.subheader("👤 Student Information")
+
+        c1, c2 = st.columns(2)
+
+        with c1:
+            student_name = st.text_input("Student Name")
+            student_id = st.text_input("Student ID")
+
+        with c2:
+            gender = st.selectbox(
+                "Gender",
+                ["Male", "Female"]
+            )
+
+            age = st.slider(
+                "Age",
+                18,
+                30,
+                22
+            )
+
+        st.divider()
+
+        st.subheader("📚 Academic Performance")
+
+        a1, a2, a3 = st.columns(3)
+
+        with a1:
+            tenth = st.slider(
+                "10th Percentage",
+                40,
+                100,
+                75
+            )
+
+        with a2:
+            twelfth = st.slider(
+                "12th Percentage",
+                40,
+                100,
+                74
+            )
+
+        with a3:
+            graduation = st.slider(
+                "Graduation Percentage",
+                40,
+                100,
+                72
+            )
+
+        a4, a5, a6 = st.columns(3)
+
+        with a4:
+            cgpa = st.slider(
+                "CGPA",
+                5.0,
+                10.0,
+                7.5,
+                0.1
+            )
+
+        with a5:
+            attendance = st.slider(
+                "Attendance %",
+                50,
+                100,
+                80
+            )
+
+        with a6:
+            backlogs = st.number_input(
+                "Backlogs",
+                0,
+                15,
+                0
+            )
+
+        st.divider()
+
+        st.subheader("💻 Technical & Soft Skills")
+
+        s1, s2, s3 = st.columns(3)
+
+        aptitude = s1.slider(
+            "Aptitude Score",
+            30,
+            100,
+            70
+        )
+
+        coding = s2.slider(
+            "Coding Score",
+            30,
+            100,
+            70
+        )
+
+        communication = s3.slider(
+            "Communication Score",
+            30,
+            100,
+            70
+        )
+
+        s4, s5, s6 = st.columns(3)
+
+        technical = s4.slider(
+            "Technical Score",
+            30,
+            100,
+            70
+        )
+
+        mock = s5.slider(
+            "Mock Interview",
+            30,
+            100,
+            70
+        )
+
+        resume = s6.slider(
+            "Resume Score",
+            30,
+            100,
+            70
+        )
+
+        st.divider()
+
+        st.subheader("💼 Experience")
+
+        e1, e2, e3, e4 = st.columns(4)
+
+        internship = e1.selectbox(
+            "Internship",
+            ["Yes", "No"]
+        )
+
+        internship_months = e2.number_input(
+            "Internship Months",
+            0,
+            24,
+            3
+        )
+
+        projects = e3.number_input(
+            "Projects",
+            0,
+            20,
+            4
+        )
+
+        certifications = e4.number_input(
+            "Certifications",
+            0,
+            20,
+            5
+        )
+
+        st.write("")
+
+        predict = st.form_submit_button(
+            "🎯 Predict Placement"
+        )
+
+    if predict:
+
+        st.success(
+            f"Details submitted successfully for **{student_name}**."
+        )
+
+        st.info("""
+Prediction logic will be connected in **Part 3**.
+Your trained Random Forest model will calculate the placement probability and display the result here.
+""")
 
 elif page=="📊 Dashboard":
     st.title("📊 Dashboard")

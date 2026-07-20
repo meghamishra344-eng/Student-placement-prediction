@@ -35,11 +35,6 @@ FINAL_NUM = ["10th_Percentage", "12th_Percentage", "Graduation_Percentage", "CGP
              "Academic_Avg", "Skill_Avg", "Total_Experience", "CGPA_x_Skill"]
 FINAL_CAT = ["Internship"]
 
-# Convert to DataFrame for plotting
-df_scores = pd.DataFrame.from_dict(scores, orient='index', columns=['Value'])
-
-# Show as bar chart with labels
-st.bar_chart(df_scores)
 
 # ============================================================
 # Visual identity — palette, type, and shared CSS

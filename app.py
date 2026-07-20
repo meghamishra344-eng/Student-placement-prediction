@@ -293,6 +293,10 @@ if submitted:
     st.success(f"✅ Likely to be placed! Confidence: {probability:.2f}%")
 else:
     st.error(f"❌ May not be placed. Confidence: {100 - probability:.2f}%")
+  
+    st.metric("Placement Probability", f"{probability:.2f}%")
+    st.progress(int(probability))
+
 
 
     # SHAP explanation

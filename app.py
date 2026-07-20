@@ -368,11 +368,8 @@ if student_id:
     # Auto-fill sliders with student data
     cgpa = st.sidebar.slider("CGPA", 0.0, 10.0, float(student['CGPA']))
     iq = st.sidebar.slider("Aptitude Score", 0, 100, int(student['Aptitude_Score']))
-    comm = st.sidebar.selectbox(
-        "Communication Skills",
-        ["Poor", "Average", "Good"],
-        index=int(student['Communication_Score'])  # assuming Comm is stored as 0/1/2
-    )
+    
+# Get numeric score from dataset
 score = int(student['Communication_Score'])
 
 # Map numeric score into category index
@@ -383,11 +380,11 @@ elif score < 70:
 else:
     comm_index = 2   # Good
 
+# Use mapped index in selectbox
 comm = st.sidebar.selectbox(
     "Communication Skills",
     ["Poor", "Average", "Good"],
     index=comm_index
 )
-
 
 
